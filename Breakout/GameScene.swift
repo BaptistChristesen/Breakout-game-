@@ -37,7 +37,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     func kickBall(){
         ball.physicsBody?.isDynamic = true
-        ball.physicsBody?.applyImpulse(CGVector(dx: 3, dy: 5))
+        ball.physicsBody?.applyImpulse(CGVector(dx: Int.random(in: -5...5), dy: 5))
     }
     func updateLabels(){
         scoreLabel.text = "Score: \(score)"
@@ -176,6 +176,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for brick in bricks{
             if contact.bodyA.node == brick || contact.bodyB.node == brick{
                 score += 1
+                ball.physicsBody!.velocity.dx *= CGFloat(1.02)
+                ball.physicsBody!.velocity.dy *= CGFloat(1.02)
                 updateLabels()
                 if brick.color == .blue{
                     brick.color = .orange
